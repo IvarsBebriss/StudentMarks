@@ -1,0 +1,47 @@
+
+//funkcija aprēķinās visu form-group elementu ar clases paplašinājumu 'prc' vidējo vērtību (ja tā ir >0 un <=10)
+//funkcija pirmo ciklu veic pēc ielādes un tad pēc katras izmaiņas 'prc' laukos
+//gala rezultāts tiek noapaļots līdz 2 cipariem aiz komata
+
+	<div class="form-group row">
+      <label for="pd2" class="col-sm-2 col-form-label">PD2</label>
+      <div class="col-sm-5">
+        <input type="number" min="0" max="10" class="form-control prc" name="pd2" value="<?=$atzimes['pd2']??0?>"/>
+      </div>
+    </div>
+	....
+	....
+	....
+	<div class="form-group row">
+      <label class="col-sm-2 col-form-label">Vidējā atzīme</label>
+      <div class="col-sm-5">
+        <output type="text" class="form-control-plaintext" id="result"></output>
+      </div>
+    </div>
+	
+
+
+
+<script src="jquery.min.js"></script>
+<script>
+	$('.form-group').on('input','.prc',function(){
+        CalculateAverage();
+	});
+    $( document ).ready(function(){
+        CalculateAverage();
+    });
+    function CalculateAverage(){
+        var totalSum = 0;
+        var marksCount = 0;
+        $('.form-group .prc').each(function(){
+            var inputVal = $(this).val();
+            if($.isNumeric(inputVal)){
+                if(parseFloat(inputVal)>0 && parseFloat(inputVal)<=10){
+					totalSum += parseFloat(inputVal);
+					marksCount++;
+				}
+            }
+        });
+        $('#result').text((totalSum/marksCount).toFixed(2));
+    }
+</script>
